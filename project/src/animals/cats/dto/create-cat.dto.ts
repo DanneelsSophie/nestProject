@@ -10,4 +10,5 @@ export class CreateCatDto  extends Animal {
     match<T>(p: AnimalPattern<T>): T {
         return p.Cat(this);
     }
+
 }
