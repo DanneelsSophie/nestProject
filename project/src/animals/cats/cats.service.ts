@@ -6,7 +6,7 @@ import {AnimalService} from "../animals.service";
 
 @Injectable()
 export class CatsService implements AnimalService {
-    constructor(@Inject('CAT_MODEL') private readonly catModel: typeof Model ) {}
+    constructor(@Inject('CAT_MODEL') private readonly catModel:  Model<Cat> ) {}
 
     async create(createCatDto: CreateCatDto): Promise<Cat> {
         const createdCat = new this.catModel(createCatDto);
