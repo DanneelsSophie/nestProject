@@ -5,7 +5,7 @@ import {AnimalsModule} from "../src/animals/animals.module";
 import {CatsService} from "../src/animals/cats/cats.service";
 import {DogsService} from "../src/animals/dogs/dogs.service";
 
-describe('Cats', () => {
+describe('Cats e2e ', () => {
     let app: INestApplication;
     let catsService = { findAll: () => ['test'] };
     let dogsService = { findAll: () => ['test'] };
