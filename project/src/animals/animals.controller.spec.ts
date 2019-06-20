@@ -28,6 +28,7 @@ const mockDogService = new (jest.fn(() => ({
 
 
 describe('Animals Controller', () => {
+
     let controller: AnimalsController;
     afterEach(() => {
         jest.clearAllMocks()
@@ -50,33 +51,33 @@ describe('Animals Controller', () => {
 
     /** CATS **/
 
+
     it('check it is a catService findAll',  () => {
         controller.findAllAnimals("cats").then(function (value) {
             expect(value).toStrictEqual([{id:1, name: "miaou1", age: 4, breed: "Siamois"},{id:2, name: "miaou2", age: 4, breed: "Siamois"}]);
-            expect(mockCatService.findAll).toHaveReturned();
+            expect(mockCatService.findAll).toHaveBeenCalledTimes(1);
             expect(mockDogService.findAll).toHaveBeenCalledTimes(0);
         });
     });
 
-    it('check it is a catService findById',  () => {
 
+    it('check it is a catService findById catch',() =>{
         controller.findOne( "-1","cats").catch(function (value) {
             expect(value).toStrictEqual("erreur");
-            expect(mockCatService.findById).toHaveReturned();
+            expect(mockCatService.findById).nthCalledWith(1,"-1");
             expect(mockDogService.findById).toHaveBeenCalledTimes(0);
-            expect(mockCatService.findById.mock.calls[0]).toEqual(["-1"]);
+            expect(mockCatService.findById).toHaveBeenCalledTimes(1);
         })
+    })
 
-
+    it('check it is a catService findById  then',  () => {
         controller.findOne( "4","cats").then(function (value) {
             expect(value).toStrictEqual({id: 4, name: "miaou1", age: 4, breed: "Siamois"});
-            expect(mockCatService.findById).toHaveBeenCalledTimes(2);
+            expect(mockCatService.findById).nthCalledWith(2,"4")
             expect(mockDogService.findById).toHaveBeenCalledTimes(0);
-            expect(mockDogService.findById).toHaveBeenCalledTimes(0);
-            expect(mockCatService.findById.mock.calls[1]).toEqual(["4"]);
+            expect(mockCatService.findById).toHaveBeenCalledTimes(1);
 
         })
-
     });
 
     /** DOGS **/
@@ -84,11 +85,10 @@ describe('Animals Controller', () => {
     it('check it is a dogService findAll', () => {
         controller.findAllAnimals("dogs").then(function (value) {
             expect(value).toStrictEqual([{id:1, name: "ouaf1", age: 4, breed: "Berger Allemand"},{id:2, name: "ouaf2", age: 4, breed: "Berger Allemand"}]);
-            expect(mockDogService.findAll).toHaveReturned();
+            expect(mockDogService.findAll).toHaveBeenCalledTimes(1);
             expect(mockCatService.findAll).toHaveBeenCalledTimes(0);
         });
     });
-
 
 
 });

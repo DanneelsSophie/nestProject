@@ -24,8 +24,6 @@ describe('Animals Controller', () => {
             controllers: [AnimalsController],
             providers: [CatsService,DogsService]
         }).compile();
-
-
         controller = module.get<AnimalsController>(AnimalsController);
         serviceCat = module.get(CatsService);
         serviceDog = module.get(DogsService);
@@ -65,9 +63,10 @@ describe('Animals Controller', () => {
         jest.spyOn(serviceCat, 'findAll').mockResolvedValue([<Cat>{ name: "miaou1", age: 4, breed: "Siamois"},<Cat>{name: "miaou2", age: 4, breed: "Siamois"}]);
         controller.findAllAnimals("cats").then(function (value) {
             expect(value).toStrictEqual([{name: "miaou1", age: 4, breed: "Siamois"},{ name: "miaou2", age: 4, breed: "Siamois"}]);
-            expect(serviceCat.findAll).toHaveReturned();
+            expect(serviceCat.findAll).toHaveBeenCalledTimes(1);
             expect(serviceDog.findAll).toHaveBeenCalledTimes(0);
         });
+
     });
 
 
@@ -76,8 +75,9 @@ describe('Animals Controller', () => {
         controller.findAllAnimals("dogs").then(function (value) {
             expect(value).toStrictEqual([{name: "ouaf", age: 4, breed: "Berger Allemand"},{ name: "ouuaf", age: 4, breed: "Berger Allemand"}]);
             expect(serviceCat.findAll).toHaveBeenCalledTimes(0)
-            expect(serviceDog.findAll).toHaveReturned();
+            expect(serviceDog.findAll).toHaveBeenCalledTimes(1);
         });
+
     });
 
 
@@ -89,6 +89,7 @@ describe('Animals Controller', () => {
             expect(serviceDog.findById).toHaveBeenCalledTimes(0);
             expect(serviceCat.findById).toHaveBeenLastCalledWith("1");
         });
+
     });
 
 
@@ -100,6 +101,7 @@ describe('Animals Controller', () => {
             expect(serviceDog.findById).toHaveBeenCalledTimes(0);
             expect(serviceCat.findById).toHaveBeenLastCalledWith("-1");
         });
+
     });
 
 });
