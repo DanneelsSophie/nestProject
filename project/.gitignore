@@ -395,4 +395,5 @@ dist
 
 #IDEA
 
-./idea/*
+.idea/
+.DS_STORE
