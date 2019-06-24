@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import {Model} from 'mongoose';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { Dog } from './interfaces/dog.interface';
 
 @Injectable()
 export class DogsService {
-    constructor(@Inject('DOG_MODEL') private readonly dogModel: Model<Dog>) {}
+    constructor(@Inject('DOG_MODEL') private readonly dogModel: Model<Dog> ) {}
 
     async create(createDogDto: CreateDogDto): Promise<Dog> {
         const createdDog = new this.dogModel(createDogDto);
