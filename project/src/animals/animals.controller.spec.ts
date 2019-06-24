@@ -70,14 +70,12 @@ describe('Animals Controller', () => {
         })
     })
 
-    it('check it is a catService findById  then',  () => {
-        controller.findOne( "4","cats").then(function (value) {
-            expect(value).toStrictEqual({id: 4, name: "miaou1", age: 4, breed: "Siamois"});
-            expect(mockCatService.findById).nthCalledWith(2,"4")
-            expect(mockDogService.findById).toHaveBeenCalledTimes(0);
-            expect(mockCatService.findById).toHaveBeenCalledTimes(1);
-
-        })
+    it('check it is a catService findById  then',  async() => {
+        const value = await controller.findOne( "4","cats");
+        expect(value).toStrictEqual({id: 4, name: "miaou1", age: 4, breed: "Siamois"});
+        expect(mockCatService.findById).nthCalledWith(1,"4")
+        expect(mockDogService.findById).toHaveBeenCalledTimes(0);
+        expect(mockCatService.findById).toHaveBeenCalledTimes(1);
     });
 
     /** DOGS **/
