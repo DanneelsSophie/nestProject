@@ -11,6 +11,6 @@ export interface AnimalMatcher {
     match<T>(p: AnimalPattern<T>): T;
 }
 
-export abstract class Animal implements AnimalMatcher {
+export abstract class Animal extends Document implements AnimalMatcher  {
     abstract match<T>(p: AnimalPattern<T>): T;
 }
